@@ -1,11 +1,18 @@
+;;; rdoc-mode.el --- Major mode for RDoc editing
 ;;
-;; rdoc-mode.el
-;; Major mode for RDoc editing
-;;
-
+;; Authors: Nobuyoshi Nakada
+;;          Akinori MUSHA <knu@iDaemons.org>
+;; Maintainer: Nobuyoshi Nakada
+;;             Akinori MUSHA <knu@iDaemons.org>
 ;; Created: Fri Sep 18 09:04:49 JST 2009
+;; URL: https://github.com/ruby/elisp-rdoc-mode
+;; Keywords: rdoc ruby languages
+;; License: The same license terms as Ruby
+;; Version: 1.0.0
 
-;; License: Ruby's
+;;; Commentary:
+;;
+;; `rdoc-mode' is a major mode for editing RDoc files.
 
 (require 'derived)
 
@@ -164,3 +171,5 @@
 (add-hook 'rdoc-mode-hook 'rdoc-set-imenu-create-index-function)
 
 (provide 'rdoc-mode)
+
+;;; rdoc-mode.el ends here
