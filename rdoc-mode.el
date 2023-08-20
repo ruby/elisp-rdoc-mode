@@ -170,6 +170,9 @@
 
 (add-hook 'rdoc-mode-hook 'rdoc-set-imenu-create-index-function)
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.rdoc\\'" . rdoc-mode))
+
 (provide 'rdoc-mode)
 
 ;;; rdoc-mode.el ends here
