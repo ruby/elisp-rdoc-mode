@@ -88,7 +88,7 @@
   (define-key rdoc-mode-map "\M-q" 'rdoc-fill-paragraph)
   )
 
-(defvar rdoc-heading1-face 'font-lock-keywordoc-face)
+(defvar rdoc-heading1-face 'font-lock-keyword-face)
 (defvar rdoc-heading2-face 'font-lock-type-face)
 (defvar rdoc-heading3-face 'font-lock-variable-name-face)
 (defvar rdoc-heading4-face 'font-lock-comment-face)
