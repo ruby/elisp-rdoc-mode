@@ -98,7 +98,10 @@
 (defvar rdoc-description-face 'font-lock-constant-face)
 
 (defvar rdoc-font-lock-keywords
-  (let ((heading "\\([^=\r\n].*\\)?$"))
+  (let ((heading "\\([^=\r\n].*\\)?$")
+	(before "\\(^\\|[ \t\v\f]\\)")
+	(after "\\($\\|[ \t\v\f,.:]\\)")
+	(word "\\(\\sw\\|[-_:]\\)+"))
     (list
      (list (concat "^=" heading)
 	   0 rdoc-heading1-face)
@@ -108,11 +111,11 @@
 	   0 rdoc-heading3-face)
      (list "^====+.*$"
 	   0 rdoc-heading4-face)
-     (list "\\(^\\|[ \t\v\f]\\)\\(\\*\\(\\sw\\|[-_:]\\)+\\*\\)\\($\\|[ \t\v\f]\\)"
+     (list (concat before "\\(\\*" word "\\*\\)" after)
 	   2 rdoc-bold-face)		; *bold*
-     (list "\\(^\\|[ \t\v\f]\\)\\(_\\(\\sw\\|[-_:]\\)+_\\)\\($\\|[ \t\v\f]\\)"
+     (list (concat before "\\(_" word "_\\)" after)
 	   2 rdoc-emphasis-face)		; _emphasis_
-     (list "\\(^\\|[ \t\v\f]\\)\\(\\+\\(\\sw\\|[-_:]\\)+\\+\\)\\($\\|[ \t\v\f]\\)"
+     (list (concat before "\\(\\+" word "\\+\\)" after)
 	   2 rdoc-code-face)		; +code+
      (list "<em>[^<>]*</em>" 0 rdoc-emphasis-face)
      (list "<i>[^<>]*</i>" 0 rdoc-emphasis-face)
