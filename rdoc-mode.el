@@ -88,7 +88,7 @@
   (define-key rdoc-mode-map "\M-q" 'rdoc-fill-paragraph)
   )
 
-(defvar rdoc-heading1-face 'font-lock-keywordoc-face)
+(defvar rdoc-heading1-face 'font-lock-keyword-face)
 (defvar rdoc-heading2-face 'font-lock-type-face)
 (defvar rdoc-heading3-face 'font-lock-variable-name-face)
 (defvar rdoc-heading4-face 'font-lock-comment-face)
@@ -98,32 +98,37 @@
 (defvar rdoc-description-face 'font-lock-constant-face)
 
 (defvar rdoc-font-lock-keywords
-  (list
-   (list "^=([^=\r\n].*)?$"
-	 0 rdoc-heading1-face)
-   (list "^==([^=\r\n].*)?$"
-	 0 rdoc-heading2-face)
-   (list "^===([^=\r\n].*)?$"
-	 0 rdoc-heading3-face)
-   (list "^====+.*$"
-	 0 rdoc-heading4-face)
-   (list "\\(^\\|[ \t\v\f]\\)\\(\\*\\(\\sw\\|[-_:]\\)+\\*\\)\\($\\|[ \t\v\f]\\)"
-	 2 rdoc-bold-face)		; *bold*
-   (list "\\(^\\|[ \t\v\f]\\)\\(_\\(\\sw\\|[-_:]\\)+_\\)\\($\\|[ \t\v\f]\\)"
-	 2 rdoc-emphasis-face)		; _emphasis_
-   (list "\\(^\\|[ \t\v\f]\\)\\(\\+\\(\\sw\\|[-_:]\\)+\\+\\)\\($\\|[ \t\v\f]\\)"
-	 2 rdoc-code-face)		; +code+
-   (list "<em>[^<>]*</em>" 0 rdoc-emphasis-face)
-   (list "<i>[^<>]*</i>" 0 rdoc-emphasis-face)
-   (list "<b>[^<>]*</b>" 0 rdoc-bold-face)
-   (list "<tt>[^<>]*</tt>" 0 rdoc-code-face)
-   (list "<code>[^<>]*</code>" 0 rdoc-code-face)
-   (list "^\\([-*]\\|[0-9]+\\.\\|[A-Za-z]\\.\\)\\s "
-	 1 rdoc-description-face) ; bullet | numbered | alphabetically numbered
-   (list "^\\[[^\]]*\\]\\|\\S .*::\\)\\([ \t\v\f]\\|$\\)"
-	 1 rdoc-description-face)	; labeled | node
-   ;(list "^[ \t\v\f]+\\(.*\\)" 1 rdoc-verbatim-face)
-   ))
+  (let ((heading "\\([^=\r\n].*\\)?$")
+	(before "\\(^\\|[ \t\v\f]\\)")
+	(after "\\($\\|[ \t\v\f,.:]\\)")
+	(phrase "\\(?:[^<>]*\\|<\\(?:<=?\\|=>?\\)?\\|>>?=?\\)")
+	(word "\\(\\sw\\|[-_:]\\)+"))
+    (list
+     (list (concat "^=" heading)
+	   0 rdoc-heading1-face)
+     (list (concat "^==" heading)
+	   0 rdoc-heading2-face)
+     (list (concat "^===" heading)
+	   0 rdoc-heading3-face)
+     (list "^====+.*$"
+	   0 rdoc-heading4-face)
+     (list (concat before "\\(\\*" word "\\*\\)" after)
+	   2 rdoc-bold-face)		; *bold*
+     (list (concat before "\\(_" word "_\\)" after)
+	   2 rdoc-emphasis-face)		; _emphasis_
+     (list (concat before "\\(\\+" word "\\+\\)" after)
+	   2 rdoc-code-face)		; +code+
+     (list (concat "<em>" phrase "</em>") 0 rdoc-emphasis-face)
+     (list (concat "<i>" phrase "</i>") 0 rdoc-emphasis-face)
+     (list (concat "<b>" phrase "</b>") 0 rdoc-bold-face)
+     (list (concat "<tt>" phrase "</tt>") 0 rdoc-code-face)
+     (list (concat "<code>" phrase "</code>") 0 rdoc-code-face)
+     (list "^\\([-*]\\|[0-9]+\\.\\|[A-Za-z]\\.\\)\\s "
+	   1 rdoc-description-face) ; bullet | numbered | alphabetically numbered
+     (list "^\\[[^\\]]*\\]\\|\\S .*::\\)\\([ \t\v\f]\\|$\\)"
+	   1 rdoc-description-face)	; labeled | node
+     ;(list "^[ \t\v\f]+\\(.*\\)" 1 rdoc-verbatim-face)
+     )))
 
 (defun rdoc-imenu-create-index ()
   (let ((root '(nil . nil))
