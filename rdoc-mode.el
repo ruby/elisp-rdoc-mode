@@ -101,6 +101,7 @@
   (let ((heading "\\([^=\r\n].*\\)?$")
 	(before "\\(^\\|[ \t\v\f]\\)")
 	(after "\\($\\|[ \t\v\f,.:]\\)")
+	(phrase "\\(?:[^<>]*\\|<\\(?:<=?\\|=>?\\)?\\|>>?=?\\)")
 	(word "\\(\\sw\\|[-_:]\\)+"))
     (list
      (list (concat "^=" heading)
@@ -117,11 +118,11 @@
 	   2 rdoc-emphasis-face)		; _emphasis_
      (list (concat before "\\(\\+" word "\\+\\)" after)
 	   2 rdoc-code-face)		; +code+
-     (list "<em>[^<>]*</em>" 0 rdoc-emphasis-face)
-     (list "<i>[^<>]*</i>" 0 rdoc-emphasis-face)
-     (list "<b>[^<>]*</b>" 0 rdoc-bold-face)
-     (list "<tt>[^<>]*</tt>" 0 rdoc-code-face)
-     (list "<code>[^<>]*</code>" 0 rdoc-code-face)
+     (list (concat "<em>" phrase "</em>") 0 rdoc-emphasis-face)
+     (list (concat "<i>" phrase "</i>") 0 rdoc-emphasis-face)
+     (list (concat "<b>" phrase "</b>") 0 rdoc-bold-face)
+     (list (concat "<tt>" phrase "</tt>") 0 rdoc-code-face)
+     (list (concat "<code>" phrase "</code>") 0 rdoc-code-face)
      (list "^\\([-*]\\|[0-9]+\\.\\|[A-Za-z]\\.\\)\\s "
 	   1 rdoc-description-face) ; bullet | numbered | alphabetically numbered
      (list "^\\[[^\\]]*\\]\\|\\S .*::\\)\\([ \t\v\f]\\|$\\)"
