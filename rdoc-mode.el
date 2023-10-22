@@ -120,7 +120,7 @@
    (list "<code>[^<>]*</code>" 0 rdoc-code-face)
    (list "^\\([-*]\\|[0-9]+\\.\\|[A-Za-z]\\.\\)\\s "
 	 1 rdoc-description-face) ; bullet | numbered | alphabetically numbered
-   (list "^\\[[^\]]*\\]\\|\\S .*::\\)\\([ \t\v\f]\\|$\\)"
+   (list "^\\[[^\\]]*\\]\\|\\S .*::\\)\\([ \t\v\f]\\|$\\)"
 	 1 rdoc-description-face)	; labeled | node
    ;(list "^[ \t\v\f]+\\(.*\\)" 1 rdoc-verbatim-face)
    ))
