@@ -1,4 +1,4 @@
-;;; rdoc-mode.el --- Major mode for RDoc editing
+;;; rdoc-mode.el --- Major mode for RDoc editing -*- lexical-binding: t; -*-
 ;;
 ;; Authors: Nobuyoshi Nakada
 ;;          Akinori MUSHA <knu@iDaemons.org>
@@ -15,6 +15,8 @@
 ;; `rdoc-mode' is a major mode for editing RDoc files.
 
 (require 'derived)
+
+(defvar rdoc-font-lock-keywords)
 
 ;;;###autoload
 (define-derived-mode rdoc-mode text-mode "RDoc"
@@ -131,7 +133,7 @@
      )))
 
 (defun rdoc-imenu-create-index ()
-  (let ((root '(nil . nil))
+  (let ((root (cons nil nil))
         cur-alist
         (cur-level 0)
         (pattern (concat outline-regexp "\\(.*?\\)[ \t\v\f]*$"))
@@ -152,7 +154,7 @@
           (setcdr cur-alist alist)
           (setq cur-alist alist))
          ((< cur-level level)		; first child
-          (dotimes (i (- level cur-level 1))
+          (dotimes (_ (- level cur-level 1))
             (setq alist (list (cons empty-heading alist))))
           (if cur-alist
               (let* ((parent (car cur-alist))
@@ -163,7 +165,7 @@
                 cur-level level))
          (t				; new sibling of an ancestor
           (let ((sibling-alist (last (cdr root))))
-            (dotimes (i (1- level))
+            (dotimes (_ (1- level))
               (setq sibling-alist (last (cdar sibling-alist))))
             (setcdr sibling-alist alist)
             (setq cur-alist alist
